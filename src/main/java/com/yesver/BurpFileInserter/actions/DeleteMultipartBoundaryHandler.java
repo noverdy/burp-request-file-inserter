@@ -28,8 +28,11 @@ public class DeleteMultipartBoundaryHandler implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        ctx.logger().info("Delete multipart boundary action triggered.");
+
         Optional<MessageEditorHttpRequestResponse> editorOpt = event.messageEditorRequestResponse();
         if (editorOpt.isEmpty()) {
+            ctx.logger().error("Editor not found.");
             return;
         }
 
@@ -38,6 +41,8 @@ public class DeleteMultipartBoundaryHandler implements ActionListener {
         HttpRequest originalRequest = editor.requestResponse().request();
         ByteArray originalBytes = originalRequest.toByteArray();
 
+        ctx.logger().info("Original request length: %d bytes.", originalBytes.length());
+
         HttpHeader contentTypeHeader = originalRequest.header(CONTENT_TYPE);
         if (contentTypeHeader == null) {
             ctx.logger().error("Content-Type header not found.");
@@ -45,6 +50,8 @@ public class DeleteMultipartBoundaryHandler implements ActionListener {
         }
 
         String contentType = contentTypeHeader.value();
+        ctx.logger().info("Content-Type: %s", contentType);
+
         if (!contentType.startsWith(MULTIPART)) {
             ctx.logger().error("Not a multipart/form-data request.");
             return;
@@ -52,7 +59,7 @@ public class DeleteMultipartBoundaryHandler implements ActionListener {
 
         ByteArray boundary = extractBoundary(contentType);
         if (boundary == null) {
-            ctx.logger().error("Boundary not found.");
+            ctx.logger().error("Boundary not found in Content-Type.");
             return;
         }
 
@@ -61,7 +68,6 @@ public class DeleteMultipartBoundaryHandler implements ActionListener {
             ctx.logger().error("Boundary not found in body.");
             return;
         }
-
 
         int caretPosition = editor.caretPosition();
         Optional<BoundaryPair> pairOpt = findBoundaryPair(boundaryIndices, caretPosition);
@@ -85,7 +91,7 @@ public class DeleteMultipartBoundaryHandler implements ActionListener {
         HttpRequest newRequest = HttpRequest.httpRequest(newRequestBytes);
         editor.setRequest(newRequest);
 
-        ctx.logger().info("Removed data between boundaries at %d and %d.", pair.start(), pair.end());
+        ctx.logger().info("Removed data between boundaries at %d and %d. New request length: %d bytes.\n", pair.start(), pair.end(), newRequestBytes.length());
     }
 
     private ByteArray extractBoundary(String contentType) {
