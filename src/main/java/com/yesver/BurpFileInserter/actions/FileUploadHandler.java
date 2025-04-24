@@ -19,6 +19,12 @@ public class FileUploadHandler implements ActionListener {
     private final ContextMenuEvent event;
     private final Function<byte[], byte[]> dataProcessor;
 
+    public FileUploadHandler(ExtensionContext ctx, ContextMenuEvent event) {
+        this.ctx = ctx;
+        this.event = event;
+        this.dataProcessor = Function.identity();
+    }
+
     public FileUploadHandler(ExtensionContext ctx, ContextMenuEvent event, Function<byte[], byte[]> dataProcessor) {
         this.ctx = ctx;
         this.event = event;

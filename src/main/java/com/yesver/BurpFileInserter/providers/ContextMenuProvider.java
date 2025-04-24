@@ -30,7 +30,7 @@ public class ContextMenuProvider implements ContextMenuItemsProvider {
 
         JMenuItem uploadFileItem = createMenuItem(
                 "Add file (raw) to current cursor position",
-                new FileUploadHandler(ctx, event, Function.identity())
+                new FileUploadHandler(ctx, event)
 
         );
 
