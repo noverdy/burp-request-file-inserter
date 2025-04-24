@@ -13,7 +13,7 @@ public class Extension implements BurpExtension {
                 new Logger(api)
         );
 
-        api.extension().setName("Burp Request File Inserter");
+        api.extension().setName("Request File Inserter");
         api.userInterface().registerContextMenuItemsProvider(new ContextMenuProvider(ctx));
     }
 }
