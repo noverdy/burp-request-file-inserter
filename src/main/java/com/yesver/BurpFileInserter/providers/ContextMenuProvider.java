@@ -4,10 +4,12 @@ import burp.api.montoya.core.ToolType;
 import burp.api.montoya.ui.contextmenu.ContextMenuEvent;
 import burp.api.montoya.ui.contextmenu.ContextMenuItemsProvider;
 import com.yesver.BurpFileInserter.ExtensionContext;
+import com.yesver.BurpFileInserter.actions.DeleteMultipartBoundaryHandler;
 import com.yesver.BurpFileInserter.actions.FileUploadHandler;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.Base64;
 import java.util.List;
 import java.util.function.Function;
@@ -26,31 +28,32 @@ public class ContextMenuProvider implements ContextMenuItemsProvider {
             return null;
         }
 
-        JMenuItem uploadFileItem = createUploadMenuItem(
-                ctx,
+        JMenuItem uploadFileItem = createMenuItem(
                 "Add file (raw) to current cursor position",
-                event,
-                Function.identity()
+                new FileUploadHandler(ctx, event, Function.identity())
+
         );
 
-        JMenuItem uploadFileBase64Item = createUploadMenuItem(
-                ctx,
+        JMenuItem uploadFileBase64Item = createMenuItem(
                 "Add file (base64) to current cursor position",
-                event,
-                bytes -> Base64.getEncoder().encode(bytes)
+                new FileUploadHandler(ctx, event, bytes -> Base64.getEncoder().encode(bytes))
         );
 
-        return List.of(uploadFileItem, uploadFileBase64Item);
+        JMenuItem deleteMultipartBoundaryItem = createMenuItem(
+                "Delete multipart/form-data boundary data at cursor",
+                new DeleteMultipartBoundaryHandler(ctx, event)
+        );
+
+        return List.of(
+                uploadFileItem,
+                uploadFileBase64Item,
+                deleteMultipartBoundaryItem
+        );
     }
 
-    private JMenuItem createUploadMenuItem(
-            ExtensionContext ctx,
-            String label,
-            ContextMenuEvent event,
-            Function<byte[], byte[]> dataProcessor
-    ) {
+    private JMenuItem createMenuItem(String label, ActionListener handler) {
         JMenuItem item = new JMenuItem(label);
-        item.addActionListener(new FileUploadHandler(ctx, event, dataProcessor));
+        item.addActionListener(handler);
         return item;
     }
 }
