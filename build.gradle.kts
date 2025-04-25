@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "com.yesver.BurpFileInserter"
-version = "1.1.0"
+version = "1.0"
 
 repositories {
     mavenCentral()

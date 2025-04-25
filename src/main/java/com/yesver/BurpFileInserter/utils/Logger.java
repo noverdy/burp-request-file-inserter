@@ -1,4 +1,4 @@
-package com.yesver.burpfileinserter.utils;
+package com.yesver.BurpFileInserter.utils;
 
 import burp.api.montoya.MontoyaApi;
 import java.time.LocalDateTime;
