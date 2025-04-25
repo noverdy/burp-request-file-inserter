@@ -1,6 +1,6 @@
-package com.yesver.BurpFileInserter;
+package com.yesver.burpfileinserter;
 
 import burp.api.montoya.MontoyaApi;
-import com.yesver.BurpFileInserter.utils.Logger;
+import com.yesver.burpfileinserter.utils.Logger;
 
 public record ExtensionContext(MontoyaApi api, Logger logger) {}
