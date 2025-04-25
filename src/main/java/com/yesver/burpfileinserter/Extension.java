@@ -1,9 +1,9 @@
-package com.yesver.BurpFileInserter;
+package com.yesver.burpfileinserter;
 
 import burp.api.montoya.BurpExtension;
 import burp.api.montoya.MontoyaApi;
-import com.yesver.BurpFileInserter.providers.ContextMenuProvider;
-import com.yesver.BurpFileInserter.utils.Logger;
+import com.yesver.burpfileinserter.providers.ContextMenuProvider;
+import com.yesver.burpfileinserter.utils.Logger;
 
 public class Extension implements BurpExtension {
     @Override

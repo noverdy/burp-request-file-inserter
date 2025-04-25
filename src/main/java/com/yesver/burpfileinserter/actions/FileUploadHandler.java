@@ -1,10 +1,10 @@
-package com.yesver.BurpFileInserter.actions;
+package com.yesver.burpfileinserter.actions;
 
 import burp.api.montoya.core.ByteArray;
 import burp.api.montoya.http.message.requests.HttpRequest;
 import burp.api.montoya.ui.contextmenu.ContextMenuEvent;
 import burp.api.montoya.ui.contextmenu.MessageEditorHttpRequestResponse;
-import com.yesver.BurpFileInserter.ExtensionContext;
+import com.yesver.burpfileinserter.ExtensionContext;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

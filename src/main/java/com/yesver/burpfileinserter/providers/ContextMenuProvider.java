@@ -1,18 +1,17 @@
-package com.yesver.BurpFileInserter.providers;
+package com.yesver.burpfileinserter.providers;
 
 import burp.api.montoya.core.ToolType;
 import burp.api.montoya.ui.contextmenu.ContextMenuEvent;
 import burp.api.montoya.ui.contextmenu.ContextMenuItemsProvider;
-import com.yesver.BurpFileInserter.ExtensionContext;
-import com.yesver.BurpFileInserter.actions.DeleteMultipartBoundaryHandler;
-import com.yesver.BurpFileInserter.actions.FileUploadHandler;
+import com.yesver.burpfileinserter.ExtensionContext;
+import com.yesver.burpfileinserter.actions.DeleteMultipartBoundaryHandler;
+import com.yesver.burpfileinserter.actions.FileUploadHandler;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Base64;
 import java.util.List;
-import java.util.function.Function;
 
 
 public class ContextMenuProvider implements ContextMenuItemsProvider {
@@ -31,7 +30,6 @@ public class ContextMenuProvider implements ContextMenuItemsProvider {
         JMenuItem uploadFileItem = createMenuItem(
                 "Add file (raw) to current cursor position",
                 new FileUploadHandler(ctx, event)
-
         );
 
         JMenuItem uploadFileBase64Item = createMenuItem(
